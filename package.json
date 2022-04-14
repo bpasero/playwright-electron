@@ -1,0 +1,11 @@
+{
+    "name": "name",
+    "description": "description",
+    "authors": "author",
+    "version": "1.0.0",
+    "main": "pathToMain",
+    "dependencies": {
+        "@playwright/test": "1.21.0",
+        "electron": "18.0.3"
+    }
+}
