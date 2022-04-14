@@ -13,7 +13,6 @@ protocol.registerSchemesAsPrivileged([
 
 app.whenReady().then(() => {
     session.defaultSession.protocol.registerFileProtocol('vscode-file', (request, callback) => {
-        console.log(new URL(request.url));
         callback({ path: new URL(request.url).pathname });
     });
 
@@ -23,7 +22,14 @@ app.whenReady().then(() => {
         webPreferences: {
             preload: join(__dirname, 'preload.js'),
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            additionalArguments: [`--vscode-window-config=askdakdkasdajkl`],
+            v8CacheOptions: 'none',
+            enableWebSQL: false,
+            spellcheck: false,
+            nativeWindowOpen: true,
+            zoomFactor: 1,
+            enableBlinkFeatures: 'HighlightAPI',
         }
     });
     win.loadURL(new URL(`vscode-file:/vscode-app/${join(__dirname, 'index.html')}`).toString());

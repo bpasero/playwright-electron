@@ -7,3 +7,9 @@
 
     window.document.body.appendChild(span);
 })();
+
+window.driver = {
+    getTitle: () => {
+        return 'Renderer Title';
+    }
+}
