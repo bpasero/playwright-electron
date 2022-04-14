@@ -6,6 +6,6 @@
     "main": "pathToMain",
     "dependencies": {
         "@playwright/test": "1.21.0",
-        "electron": "18.0.3"
+        "electron": "17.x"
     }
 }
