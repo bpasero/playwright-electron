@@ -37,6 +37,9 @@ app.whenReady().then(() => {
 
 ipcMain.handle('vscode:preload', async event => {
     const url = event.senderFrame.url;
+    if (!url) {
+        throw new Error('Invalid URL');
+    }
 
     return url;
 });
