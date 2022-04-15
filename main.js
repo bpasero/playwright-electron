@@ -2,7 +2,7 @@
 
 // main.js
 const { app, BrowserWindow, ipcMain, protocol, session } = require('electron');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
 protocol.registerSchemesAsPrivileged([
     {
@@ -13,7 +13,12 @@ protocol.registerSchemesAsPrivileged([
 
 app.whenReady().then(() => {
     session.defaultSession.protocol.registerFileProtocol('vscode-file', (request, callback) => {
-        callback({ path: new URL(request.url).pathname });
+        let urlPath = new URL(request.url).pathname;
+        // Windows path comes with a prefixed "/", E.g. "/C:/Foo/bar", so we remove it here
+        if (process.platform === 'win32') {
+            urlPath = urlPath.substring(1);
+        }
+        callback({ path: resolve(decodeURIComponent(urlPath)) });
     });
 
     const win = new BrowserWindow({
